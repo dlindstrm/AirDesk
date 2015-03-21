@@ -4,5 +4,4 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_my_workspace">MyWorkspaceActivity</string>
-    <string name="title_activity_single_workspace">SingleWorkspace</string>
 </resources>
