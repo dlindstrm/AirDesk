@@ -18,7 +18,15 @@
         </activity>
         <activity
             android:name=".MyWorkspaceActivity"
-            android:label="@string/title_activity_my_workspace" >
+            android:label="My workspaces" >
+        </activity>
+        <activity
+            android:name=".SingleWorkspace"
+            android:label="@string/title_activity_single_workspace"
+            android:parentActivityName=".MyWorkspaceActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pt.ulisboa.tecnico.cmov.airdesk.MyWorkspaceActivity" />
         </activity>
     </application>
 
