@@ -18,8 +18,9 @@
         </activity>
         <activity
             android:name=".MyWorkspaceActivity"
-            android:label="@string/title_activity_my_workspace" >
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_my_workspace"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pt.ulisboa.tecnico.cmov.airdesk.MainActivity" />
@@ -31,6 +32,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pt.ulisboa.tecnico.cmov.airdesk.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ReadFileActivity"
+            android:label="@string/title_activity_read_file"
+            android:parentActivityName=".MyWorkspaceActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pt.ulisboa.tecnico.cmov.airdesk.MyWorkspaceActivity" />
         </activity>
     </application>
 
