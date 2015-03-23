@@ -39,15 +39,9 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Called when the user clicks the My workspaces button
+    // Called when the user clicks the Send button
     public void startMyWs(View view) {
         Intent intent = new Intent(this, MyWorkspaceActivity.class);
-        startActivity(intent);
-    }
-
-    // Called when the user clicks the My workspaces button
-    public void startSharedWs(View view) {
-        Intent intent = new Intent(this, SharedWorkspaces.class);
         startActivity(intent);
     }
 }

@@ -12,8 +12,7 @@
         android:id="@+id/myWS"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:onClick="startMyWs"/>
+        android:layout_marginTop="44dp" />
 
     <Button
         android:layout_width="wrap_content"
