@@ -1,26 +1,24 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class MainActivity extends ActionBarActivity {
+public class SharedWorkspaces extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_shared_workspaces);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_shared_workspaces, menu);
         return true;
     }
 
@@ -37,17 +35,5 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    // Called when the user clicks the My workspaces button
-    public void startMyWs(View view) {
-        Intent intent = new Intent(this, MyWorkspaceActivity.class);
-        startActivity(intent);
-    }
-
-    // Called when the user clicks the My workspaces button
-    public void startSharedWs(View view) {
-        Intent intent = new Intent(this, SharedWorkspaces.class);
-        startActivity(intent);
     }
 }
