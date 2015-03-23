@@ -19,6 +19,10 @@
         <activity
             android:name=".MyWorkspaceActivity"
             android:label="@string/title_activity_my_workspace" >
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pt.ulisboa.tecnico.cmov.airdesk.MainActivity" />
         </activity>
         <activity
             android:name=".SharedWorkspaces"
