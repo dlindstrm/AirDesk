@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,6 +23,13 @@ public class FileRepo {
         ContentValues values = new ContentValues();
         values.put(File.KEY_content,file.content);
         values.put(File.KEY_title, file.title);
+        values.put(File.KEY_author, file.author);
+
+        java.util.Date date= new java.util.Date();
+        String timestamp = new Timestamp(date.getTime()).toString();
+        values.put(File.KEY_createdAt, timestamp);
+        values.put(File.KEY_ws, file.ws);
+
 
         // Inserting Row
         long file_Id = db.insert(File.TABLE, null, values);
@@ -42,24 +51,30 @@ public class FileRepo {
 
         values.put(File.KEY_content,file.content);
         values.put(File.KEY_title, file.title);
+        values.put(File.KEY_author, file.author);
 
         db.update(File.TABLE, values, File.KEY_ID + "= ?", new String[] { String.valueOf(file.file_ID) });
         db.close(); // Closing database connection
     }
 
-    public ArrayList<HashMap<String, String>>  getFileList() {
+    public ArrayList<HashMap<String, String>>  getFileList(int ws) {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 File.KEY_ID + "," +
                 File.KEY_title + "," +
-                File.KEY_content +
-                " FROM " + File.TABLE;
+                File.KEY_content + "," +
+                File.KEY_author + "," +
+                File.KEY_createdAt + "," +
+                File.KEY_ws +
+                " FROM " + File.TABLE +
+                " WHERE " +
+                File.KEY_ws + "=?";
 
         //File file = new File();
         ArrayList<HashMap<String, String>> fileList = new ArrayList<HashMap<String, String>>();
 
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(ws) });
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
@@ -83,12 +98,14 @@ public class FileRepo {
         String selectQuery =  "SELECT  " +
                 File.KEY_ID + "," +
                 File.KEY_title + "," +
-                File.KEY_content +
+                File.KEY_content + "," +
+                File.KEY_author + "," +
+                File.KEY_createdAt + "," +
+                File.KEY_ws +
                 " FROM " + File.TABLE
                 + " WHERE " +
                 File.KEY_ID + "=?";
 
-        int iCount =0;
         File file = new File();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(Id) } );
@@ -97,7 +114,10 @@ public class FileRepo {
             do {
                 file.file_ID =cursor.getInt(cursor.getColumnIndex(File.KEY_ID));
                 file.title =cursor.getString(cursor.getColumnIndex(File.KEY_title));
-                file.content  =cursor.getString(cursor.getColumnIndex(File.KEY_content));
+                file.content =cursor.getString(cursor.getColumnIndex(File.KEY_content));
+                file.author =cursor.getString(cursor.getColumnIndex(File.KEY_author));
+                file.createdAt =cursor.getString(cursor.getColumnIndex(File.KEY_createdAt));
+                file.ws =cursor.getInt(cursor.getColumnIndex(File.KEY_ws));
 
             } while (cursor.moveToNext());
         }

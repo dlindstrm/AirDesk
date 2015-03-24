@@ -6,28 +6,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class AddWsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        UserRepo repo = new UserRepo(this);
-        User user = repo.getUser();
-        if(user.email == null ) {
-            Intent intent = new Intent(this, RegisterUserActivity.class);
-            startActivity(intent);
-        }
+        setContentView(R.layout.activity_add_ws);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_add_ws, menu);
         return true;
     }
 
@@ -46,15 +41,23 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Called when the user clicks the myWs button
-    public void startMyWs(View view) {
+    // Called when the user clicks the save button
+    public void saveWs(View view) {
+
+        Workspace ws = new Workspace();
+
+        EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        ws.title = editTextTitle.getText().toString();
+        WorkspaceRepo repo = new WorkspaceRepo(this);
+        repo.insert(ws);
+        Toast.makeText(this, "Workspace added", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MyWorkspacesActivity.class);
         startActivity(intent);
     }
 
-    // Called when the user clicks the sharedWs button
-    public void startSharedWs(View view) {
-        Intent intent = new Intent(this, SharedWorkspaces.class);
+    // Called when the user clicks the cancel button
+    public void cancel(View view) {
+        Intent intent = new Intent(this, MyWorkspacesActivity.class);
         startActivity(intent);
     }
 }

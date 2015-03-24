@@ -9,25 +9,32 @@ import android.widget.TextView;
 
 
 public class ReadFileActivity extends ActionBarActivity {
-    TextView fileTitle, fileContent;
+    TextView fileContent, fileCreatedAt, fileAuthor;
     private int _File_Id=0;
+    private int _Ws_Id=0;
+    FileRepo repo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_file);
 
-        fileTitle = (TextView) findViewById(R.id.file_title);
         fileContent = (TextView) findViewById(R.id.file_content);
+        fileCreatedAt = (TextView) findViewById(R.id.file_createdAt);
+        fileAuthor = (TextView) findViewById(R.id.file_author);
 
 
         _File_Id =0;
         Intent intent = getIntent();
         _File_Id =intent.getIntExtra("file_Id", 0);
-        FileRepo repo = new FileRepo(this);
+        repo = new FileRepo(this);
         File file = repo.getFileById(_File_Id);
 
-        fileTitle.setText(String.valueOf(file.title));
+        _Ws_Id = file.ws;
+        setTitle(file.title);
+
         fileContent.setText(file.content);
+        fileCreatedAt.setText(file.createdAt);
+        fileAuthor.setText(file.author);
     }
 
 
@@ -50,6 +57,22 @@ public class ReadFileActivity extends ActionBarActivity {
             return true;
         }
 
+        else if (id == R.id.action_delete) {
+            repo.delete(_File_Id);
+            Intent intent = new Intent(this, MyWorkspaceActivity.class);
+            intent.putExtra("ws_Id",_Ws_Id);
+            startActivity(intent);
+        }
+        else if (id == R.id.action_edit) {
+            Intent intent = new Intent(this, EditFileActivity.class);
+            intent.putExtra("file_Id",_File_Id);
+            startActivity(intent);
+        }
+
+        else if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

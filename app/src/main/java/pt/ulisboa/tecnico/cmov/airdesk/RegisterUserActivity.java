@@ -6,28 +6,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class RegisterUserActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        UserRepo repo = new UserRepo(this);
-        User user = repo.getUser();
-        if(user.email == null ) {
-            Intent intent = new Intent(this, RegisterUserActivity.class);
-            startActivity(intent);
-        }
+        setContentView(R.layout.activity_register_user);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_register_user, menu);
         return true;
     }
 
@@ -46,15 +41,25 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Called when the user clicks the myWs button
-    public void startMyWs(View view) {
-        Intent intent = new Intent(this, MyWorkspacesActivity.class);
+    // Called when the user clicks the sharedWs button
+    public void insertUser(View view) {
+        User user = new User();
+        EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        EditText editTextFullName = (EditText) findViewById(R.id.editTextFullName);
+        user.email = editTextEmail.getText().toString();
+        user.fullName = editTextFullName.getText().toString();
+        UserRepo repo = new UserRepo(this);
+        repo.insert(user);
+        Toast.makeText(this, "Account successfully created", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    // Called when the user clicks the sharedWs button
-    public void startSharedWs(View view) {
-        Intent intent = new Intent(this, SharedWorkspaces.class);
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }
