@@ -43,7 +43,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Invite others"
+        android:hint="Invite others"
         android:ems="10"
         android:id="@+id/editTextInvite"
         android:layout_below="@+id/editTextTitle"
@@ -65,12 +65,13 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Key Words"
+        android:hint="Key Words"
         android:ems="10"
         android:id="@+id/editTextKeyWords"
         android:layout_below="@+id/checkBoxPublic"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="gone" />
 
 
 </RelativeLayout>
