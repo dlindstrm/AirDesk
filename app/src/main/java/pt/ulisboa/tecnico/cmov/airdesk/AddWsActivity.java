@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 
 public class AddWsActivity extends ActionBarActivity {
@@ -16,7 +19,24 @@ public class AddWsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ws);
+
+        final EditText keyWords = (EditText) findViewById(R.id.editTextKeyWords);
+        CheckBox CheckboxPublic = (CheckBox) findViewById(R.id.checkBoxPublic);
+
+        // add onCheckedListener on checkbox
+        // when user clicks on this checkbox, this is the handler.
+        CheckboxPublic.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // checkbox status is changed from uncheck to checked.
+                if (!isChecked) {
+                    keyWords.setVisibility(View.GONE);
+                } else {
+                    keyWords.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
+
 
 
     @Override
@@ -60,4 +80,5 @@ public class AddWsActivity extends ActionBarActivity {
         Intent intent = new Intent(this, MyWorkspacesActivity.class);
         startActivity(intent);
     }
+
 }
