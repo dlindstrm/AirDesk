@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class AddWsActivity extends ActionBarActivity {
 
     ArrayList<String> InviteList = new ArrayList<String>();
+    int publicWs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,10 @@ public class AddWsActivity extends ActionBarActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // checkbox status is changed from uncheck to checked.
                 if (!isChecked) {
+                    publicWs = 1;
                     keyWords.setVisibility(View.GONE);
                 } else {
+                    publicWs = 0;
                     keyWords.setVisibility(View.VISIBLE);
                 }
             }
@@ -73,8 +76,12 @@ public class AddWsActivity extends ActionBarActivity {
 
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         ws.title = editTextTitle.getText().toString();
-        WorkspaceRepo repo = new WorkspaceRepo(this);
-        repo.insert(ws);
+        WorkspaceRepo repoWs = new WorkspaceRepo(this);
+        int wsID = repoWs.insert(ws);
+        ws.publicWs = publicWs;
+        InviteRepo repoInvite = new InviteRepo(this);
+        repoInvite.insert(InviteList,wsID);
+
         Toast.makeText(this, "Workspace added", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MyWorkspacesActivity.class);
         startActivity(intent);
@@ -94,6 +101,8 @@ public class AddWsActivity extends ActionBarActivity {
             InviteList.add(Invite);
             Toast.makeText(this, Invite + " is added", Toast.LENGTH_SHORT).show();
             editTextInvite.setText("");
+        }else{
+            Toast.makeText(this, "You have to add a email", Toast.LENGTH_SHORT).show();
         }
     }
 }

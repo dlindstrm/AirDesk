@@ -44,6 +44,13 @@ public class DBHelper  extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE_USER);
 
+        String CREATE_TABLE_INVITE = "CREATE TABLE " + Invite.TABLE  + "("
+                + Invite.KEY_workspaceID  + " INTEGER, "
+                + Invite.KEY_email + " TEXT)";
+
+        db.execSQL(CREATE_TABLE_USER);
+
+
     }
 
     @Override

@@ -14,5 +14,5 @@ public class Workspace {
     public int ws_ID;
     public String title;
     public String createdAt;
-    public int Public;
+    public int publicWs;
 }
