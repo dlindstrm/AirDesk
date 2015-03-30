@@ -46,8 +46,6 @@ public class MyWorkspacesActivity extends ActionBarActivity {
             else{
                 Toast.makeText(this, "No workspaces!", Toast.LENGTH_SHORT).show();
             }
-
-
     }
 
 
