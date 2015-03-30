@@ -37,6 +37,39 @@
         android:id="@+id/editTextTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:singleLine="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite others"
+        android:ems="10"
+        android:id="@+id/editTextInvite"
+        android:layout_below="@+id/editTextTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="45dp" />
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Public"
+        android:id="@+id/checkBoxPublic"
+        android:checked="false"
+        android:layout_below="@+id/editTextInvite"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Key Words"
+        android:ems="10"
+        android:id="@+id/editTextKeyWords"
+        android:layout_below="@+id/checkBoxPublic"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
 
