@@ -12,13 +12,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import java.util.ArrayList;
+
 
 public class AddWsActivity extends ActionBarActivity {
+
+    ArrayList<String> InviteList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ws);
+
 
         final EditText keyWords = (EditText) findViewById(R.id.editTextKeyWords);
         CheckBox CheckboxPublic = (CheckBox) findViewById(R.id.checkBoxPublic);
@@ -81,4 +86,14 @@ public class AddWsActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void addInvite(View view) {
+        EditText editTextInvite = (EditText) findViewById(R.id.editTextInvite);
+        String Invite = editTextInvite.getText().toString();
+        if(!Invite.isEmpty()) {
+            //add Invite email
+            InviteList.add(Invite);
+            Toast.makeText(this, Invite + " is add", Toast.LENGTH_SHORT).show();
+            editTextInvite.setText("");
+        }
+    }
 }
