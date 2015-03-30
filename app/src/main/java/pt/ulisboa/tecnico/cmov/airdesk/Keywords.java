@@ -9,6 +9,6 @@ public class Keywords {
 
     // Labels Table Columns names
     public static final String KEY_workspaceID = "workspaceID";
-    public static final String KEY_email = "email";
+    public static final String KEY_keyword = "Keyword";
 
 }

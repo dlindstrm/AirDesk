@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -78,9 +79,17 @@ public class AddWsActivity extends ActionBarActivity {
         ws.title = editTextTitle.getText().toString();
         WorkspaceRepo repoWs = new WorkspaceRepo(this);
         int wsID = repoWs.insert(ws);
-        ws.publicWs = publicWs;
+
+        //add to Invite list
         InviteRepo repoInvite = new InviteRepo(this);
-        repoInvite.insert(InviteList,wsID);
+        repoInvite.insert(InviteList, wsID);
+
+        //add to Keword list
+        ws.publicWs = publicWs;
+        KeywordsRepo repoKeyword = new KeywordsRepo(this);
+        EditText editTextKeyword = (EditText) findViewById(R.id.editTextKeyWords);
+        ArrayList<String> Keywords = editTextKeyword.getText().toString().split(" ");
+        repoKeyword.insert(Keywords, wsID);
 
         Toast.makeText(this, "Workspace added", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MyWorkspacesActivity.class);
