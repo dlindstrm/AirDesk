@@ -92,7 +92,7 @@ public class AddWsActivity extends ActionBarActivity {
         if(!Invite.isEmpty()) {
             //add Invite email
             InviteList.add(Invite);
-            Toast.makeText(this, Invite + " is add", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, Invite + " is added", Toast.LENGTH_SHORT).show();
             editTextInvite.setText("");
         }
     }

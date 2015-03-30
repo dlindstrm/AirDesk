@@ -71,6 +71,7 @@ public class ReadFileActivity extends ActionBarActivity {
             startActivity(intent);
         }
         else if (id == R.id.action_edit) {
+
             Intent intent = new Intent(this, EditFileActivity.class);
             intent.putExtra("file_Id",_File_Id);
             startActivity(intent);
