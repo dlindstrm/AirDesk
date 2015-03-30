@@ -88,7 +88,7 @@ public class AddWsActivity extends ActionBarActivity {
         ws.publicWs = publicWs;
         KeywordsRepo repoKeyword = new KeywordsRepo(this);
         EditText editTextKeyword = (EditText) findViewById(R.id.editTextKeyWords);
-        ArrayList<String> Keywords = editTextKeyword.getText().toString().split(" ");
+        String[] Keywords = editTextKeyword.getText().toString().split(" ");
         repoKeyword.insert(Keywords, wsID);
 
         Toast.makeText(this, "Workspace added", Toast.LENGTH_SHORT).show();

@@ -13,18 +13,18 @@ public class KeywordsRepo {
     public KeywordsRepo(Context context) {
         dbHelper = new DBHelper(context);
     }
-    public void insert(ArrayList<String> keywords, int wsID) {
+    public void insert(String[] keywords, int wsID) {
 
         //Open connection to write data
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        for (int i = 0; i < keywords.size(); i++){
+        for (int i = 0; i < keywords.length; i++){
             ContentValues values = new ContentValues();
             values.put(Keywords.KEY_workspaceID, wsID);
-            values.put(Keywords.KEY_keyword, keywords.get(i));
+            values.put(Keywords.KEY_keyword, keywords[i]);
 
             // Inserting Row
-            long file_Id = db.insert(Invite.TABLE, null, values);
+            long file_Id = db.insert(Keywords.TABLE, null, values);
             db.close(); // Closing database connection
         }
     }
