@@ -84,6 +84,13 @@ public class MyWorkspaceActivity extends ActionBarActivity{
             startActivity(intent);
         }
 
+        else if (id == R.id.action_edit) {
+            Intent intent = new Intent(this,EditWsActivity.class);
+            intent.putExtra("ws_Id",_Ws_Id);
+            startActivity(intent);
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 }

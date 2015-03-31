@@ -17,7 +17,7 @@ public class EditFileActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_file);
+        setContentView(R.layout.activity_add_file);
 
         Intent intent = getIntent();
         _File_Id = intent.getIntExtra("file_Id", 0);
