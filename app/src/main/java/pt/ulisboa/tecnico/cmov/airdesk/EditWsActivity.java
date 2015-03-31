@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,7 +23,15 @@ public class EditWsActivity extends ActionBarActivity {
         WorkspaceRepo repo = new WorkspaceRepo(this);
         Workspace ws = repo.getWorkspaceById(_Ws_Id);
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        CheckBox checkBoxPublic = (CheckBox) findViewById(R.id.checkBoxPublic);
         editTextTitle.setText(ws.title);
+
+        Toast.makeText(this, " " + ws.publicWs , Toast.LENGTH_SHORT).show();
+
+        boolean publicWs;
+        if(ws.publicWs != 0){publicWs = true;}
+        else{publicWs = false;}
+        checkBoxPublic.setChecked(publicWs);
     }
 
 

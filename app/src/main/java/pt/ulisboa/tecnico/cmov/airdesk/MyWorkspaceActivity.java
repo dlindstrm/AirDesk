@@ -21,6 +21,7 @@ public class MyWorkspaceActivity extends ActionBarActivity{
 
     private int _Ws_Id=0;
     TextView file_Id;
+    WorkspaceRepo wsRepo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class MyWorkspaceActivity extends ActionBarActivity{
 
         Intent intent = getIntent();
         _Ws_Id =intent.getIntExtra("ws_Id", 0);
-        WorkspaceRepo wsRepo = new WorkspaceRepo(this);
+        wsRepo = new WorkspaceRepo(this);
         Workspace ws = wsRepo.getWorkspaceById(_Ws_Id);
         setTitle(ws.title);
 
@@ -81,6 +82,14 @@ public class MyWorkspaceActivity extends ActionBarActivity{
         else if (id == R.id.action_add) {
             Intent intent = new Intent(this,AddFileActivity.class);
             intent.putExtra("ws_Id",_Ws_Id);
+            startActivity(intent);
+        }
+        else if (id == R.id.action_delete) {
+
+            //popup window
+
+            wsRepo.delete(_Ws_Id);
+            Intent intent = new Intent(this, MyWorkspacesActivity.class);
             startActivity(intent);
         }
 

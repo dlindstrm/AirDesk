@@ -36,10 +36,10 @@ public class AddWsActivity extends ActionBarActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // checkbox status is changed from uncheck to checked.
                 if (!isChecked) {
-                    publicWs = 1;
+                    publicWs = 0;
                     keyWords.setVisibility(View.GONE);
                 } else {
-                    publicWs = 0;
+                    publicWs = 1;
                     keyWords.setVisibility(View.VISIBLE);
                 }
             }
@@ -78,14 +78,17 @@ public class AddWsActivity extends ActionBarActivity {
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         ws.title = editTextTitle.getText().toString();
         WorkspaceRepo repoWs = new WorkspaceRepo(this);
+        ws.publicWs = publicWs;
         int wsID = repoWs.insert(ws);
+
+        Toast.makeText(this, " " + ws.publicWs , Toast.LENGTH_SHORT).show();
+
 
         //add to Invite list
         InviteRepo repoInvite = new InviteRepo(this);
         repoInvite.insert(InviteList, wsID);
 
         //add to Keword list
-        ws.publicWs = publicWs;
         KeywordsRepo repoKeyword = new KeywordsRepo(this);
         EditText editTextKeyword = (EditText) findViewById(R.id.editTextKeyWords);
         String[] Keywords = editTextKeyword.getText().toString().split(" ");
