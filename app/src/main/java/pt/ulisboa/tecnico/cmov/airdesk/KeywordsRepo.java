@@ -25,7 +25,7 @@ public class KeywordsRepo {
 
             // Inserting Row
             long file_Id = db.insert(Keywords.TABLE, null, values);
-            db.close(); // Closing database connection
         }
+        db.close(); // Closing database connection
     }
 }

@@ -1,7 +1,13 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditWsActivity extends ActionBarActivity {
     private int _Ws_Id=0;
@@ -10,17 +16,16 @@ public class EditWsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ws);
-/*
+
         Intent intent = getIntent();
         _Ws_Id = intent.getIntExtra("ws_Id", 0);
         WorkspaceRepo repo = new WorkspaceRepo(this);
         Workspace ws = repo.getWorkspaceById(_Ws_Id);
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         editTextTitle.setText(ws.title);
-        */
     }
 
-/*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -78,5 +83,5 @@ public class EditWsActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    */
+
 }

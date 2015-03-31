@@ -23,11 +23,10 @@ public class InviteRepo {
             values.put(Invite.KEY_workspaceID, wsID);
             values.put(Invite.KEY_email, inviteList.get(i));
 
-
             // Inserting Row
             long file_Id = db.insert(Invite.TABLE, null, values);
-            db.close(); // Closing database connection
         }
+        db.close(); // Closing database connection
     }
 
 }
