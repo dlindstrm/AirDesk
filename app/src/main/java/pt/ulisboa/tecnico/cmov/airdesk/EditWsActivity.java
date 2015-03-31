@@ -1,17 +1,7 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import static android.content.Intent.getIntent;
-import static android.support.v4.app.ActivityCompat.startActivity;
 
 public class EditWsActivity extends ActionBarActivity {
     private int _Ws_Id=0;
@@ -20,20 +10,17 @@ public class EditWsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ws);
-
+/*
         Intent intent = getIntent();
         _Ws_Id = intent.getIntExtra("ws_Id", 0);
         WorkspaceRepo repo = new WorkspaceRepo(this);
         Workspace ws = repo.getWorkspaceById(_Ws_Id);
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
-        EditText editTextInvite = (EditText) findViewById(R.id.editTextInvite);
-        CheckBox checkBoxPublic = (CheckBox) findViewById(R.id.checkBoxPublic);
-        EditText editTextKeywords = (EditText) findViewById(R.id.editTextKeyWords);
         editTextTitle.setText(ws.title);
-//        checkBoxPublic.setChecked(ws.publicWs);
+        */
     }
 
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -90,4 +77,6 @@ public class EditWsActivity extends ActionBarActivity {
         Intent intent = new Intent(this, MyWorkspacesActivity.class);
         startActivity(intent);
     }
+
+    */
 }

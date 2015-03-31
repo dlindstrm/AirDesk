@@ -48,7 +48,7 @@ public class DBHelper  extends SQLiteOpenHelper {
                 + Invite.KEY_workspaceID  + " INTEGER, "
                 + Invite.KEY_email + " TEXT)";
 
-        db.execSQL(CREATE_TABLE_USER);
+        db.execSQL(CREATE_TABLE_INVITE);
 
 
     }
