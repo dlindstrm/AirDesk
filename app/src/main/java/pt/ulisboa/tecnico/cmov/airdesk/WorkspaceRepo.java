@@ -25,6 +25,7 @@ public class WorkspaceRepo {
             java.util.Date date= new java.util.Date();
             String timestamp = new Timestamp(date.getTime()).toString();
             values.put(Workspace.KEY_createdAt, timestamp);
+//            values.put(Workspace.KEY_public, ws.publicWs);
 
 
             // Inserting Row
@@ -40,7 +41,7 @@ public class WorkspaceRepo {
             db.close(); // Closing database connection
         }
 
-        public void update(Workspace ws) {
+        public int update(Workspace ws) {
 
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -49,6 +50,7 @@ public class WorkspaceRepo {
 
             db.update(Workspace.TABLE, values, Workspace.KEY_ID + "= ?", new String[] { String.valueOf(ws.ws_ID) });
             db.close(); // Closing database connection
+            return (int) ws.ws_ID;
         }
 
         public ArrayList<HashMap<String, String>> getWorkspaceList() {

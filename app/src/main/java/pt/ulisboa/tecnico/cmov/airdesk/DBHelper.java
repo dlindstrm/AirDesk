@@ -34,7 +34,7 @@ public class DBHelper  extends SQLiteOpenHelper {
         String CREATE_TABLE_WS = "CREATE TABLE " + Workspace.TABLE  + "("
                 + Workspace.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + Workspace.KEY_title + " TEXT, "
-                + Workspace.KEY_createdAt + " TEXT)"
+                + Workspace.KEY_createdAt + " TEXT"
                 + Workspace.KEY_public + " INTEGER)";
 
         db.execSQL(CREATE_TABLE_WS);

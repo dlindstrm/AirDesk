@@ -7,8 +7,8 @@ public class Workspace {
     // Labels Table Columns names
     public static final String KEY_ID = "id";
     public static final String KEY_title = "title";
-    public static final String KEY_public = "public";
     public static final String KEY_createdAt = "createdAt";
+    public static final String KEY_public = "public";
 
     // property help us to keep data
     public int ws_ID;

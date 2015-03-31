@@ -94,7 +94,6 @@ public class MyWorkspaceActivity extends ActionBarActivity{
         }
 
        else if (id == R.id.action_edit) {
-            Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,EditWsActivity.class);
             intent.putExtra("ws_Id",_Ws_Id);
             startActivity(intent);

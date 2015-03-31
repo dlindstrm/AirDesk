@@ -14,4 +14,5 @@
     <string name="title_activity_register_user">RegisterUserActivity</string>
     <string name="title_activity_my_workspaces">My Workspaces</string>
     <string name="title_activity_add_ws">AddWsActivity</string>
+    <string name="title_activity_edit_ws">EditWsActivity</string>
 </resources>

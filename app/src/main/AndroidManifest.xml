@@ -77,6 +77,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pt.ulisboa.tecnico.cmov.airdesk.MyWorkspacesActivity" />
         </activity>
+        <activity
+            android:name=".EditWsActivity"
+            android:label="@string/title_activity_edit_ws"
+            android:parentActivityName=".MyWorkspacesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pt.ulisboa.tecnico.cmov.airdesk.MyWorkspacesActivity" />
+        </activity>
     </application>
 
 </manifest>

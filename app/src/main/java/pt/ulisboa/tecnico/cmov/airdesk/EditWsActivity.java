@@ -6,9 +6,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EditWsActivity extends ActionBarActivity {
     private int _Ws_Id=0;
@@ -16,7 +24,7 @@ public class EditWsActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_ws);
+        setContentView(R.layout.activity_edit_ws);
 
         Intent intent = getIntent();
         _Ws_Id = intent.getIntExtra("ws_Id", 0);
@@ -28,10 +36,30 @@ public class EditWsActivity extends ActionBarActivity {
 
         Toast.makeText(this, " " + ws.publicWs , Toast.LENGTH_SHORT).show();
 
-        boolean publicWs;
-        if(ws.publicWs != 0){publicWs = true;}
-        else{publicWs = false;}
-        checkBoxPublic.setChecked(publicWs);
+//        boolean publicWs;
+//        if(ws.publicWs != 0){publicWs = true;}
+//        else{publicWs = false;}
+//        checkBoxPublic.setChecked(publicWs);
+
+        InviteRepo repoInvite = new InviteRepo(this);
+        ArrayList<HashMap<String, String>> inviteList =  repoInvite.getInviteListByWsId(_Ws_Id);
+
+
+        if(inviteList.size()!=0) {
+            ListView lv = (ListView) findViewById(R.id.listViewInvite);
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+                }});
+            ListAdapter adapter = new SimpleAdapter( EditWsActivity.this,inviteList, R.layout.view_file_entry, new String[] { "id","title"}, new int[] {R.id.file_Id, R.id.file_title});
+            lv.setAdapter(adapter);
+        }
+        else{
+            Toast.makeText(this, "No workspaces!", Toast.LENGTH_SHORT).show();
+        }
+
+
+
     }
 
 
@@ -68,7 +96,7 @@ public class EditWsActivity extends ActionBarActivity {
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         ws.title = editTextTitle.getText().toString();
         WorkspaceRepo repoWs = new WorkspaceRepo(this);
-        int wsID = repoWs.insert(ws);
+        int wsID = repoWs.update(ws);
 
         //add to Invite list
 //        InviteRepo repoInvite = new InviteRepo(this);
