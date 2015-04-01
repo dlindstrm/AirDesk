@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -20,6 +21,9 @@ import java.util.HashMap;
 
 public class EditWsActivity extends ActionBarActivity {
     private int _Ws_Id=0;
+    ArrayList<String> inviteList = new ArrayList<>();
+    InviteListAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +44,11 @@ public class EditWsActivity extends ActionBarActivity {
 //        if(ws.publicWs != 0){publicWs = true;}
 //        else{publicWs = false;}
 //        checkBoxPublic.setChecked(publicWs);
-
         InviteRepo repoInvite = new InviteRepo(this);
-        ArrayList<HashMap<String, String>> inviteList =  repoInvite.getInviteListByWsId(_Ws_Id);
-
-
+        inviteList =  repoInvite.getInviteListByWsId(_Ws_Id);
         if(inviteList.size()!=0) {
-            ListView lv = (ListView) findViewById(R.id.listViewInvite);
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                }});
-            ListAdapter adapter = new SimpleAdapter( EditWsActivity.this,inviteList, R.layout.view_file_entry, new String[] { "id","title"}, new int[] {R.id.file_Id, R.id.file_title});
-            lv.setAdapter(adapter);
+            setInviteList();
         }
-        else{
-            Toast.makeText(this, "No workspaces!", Toast.LENGTH_SHORT).show();
-        }
-
-
-
     }
 
 
@@ -90,34 +79,59 @@ public class EditWsActivity extends ActionBarActivity {
     }
 
     public void saveWs(View view) {
-
-        Workspace ws = new Workspace();
+        WorkspaceRepo repo = new WorkspaceRepo(this);
+        Workspace ws = repo.getWorkspaceById(_Ws_Id);
 
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         ws.title = editTextTitle.getText().toString();
-        WorkspaceRepo repoWs = new WorkspaceRepo(this);
-        int wsID = repoWs.update(ws);
+        repo.update(ws);
 
-        //add to Invite list
-//        InviteRepo repoInvite = new InviteRepo(this);
-//        repoInvite.insert(InviteList, wsID);
+        //Insert list
+        if(inviteList.size()>0) {
+            InviteRepo repoInvite = new InviteRepo(this);
+            repoInvite.insert(inviteList, _Ws_Id);
+        }
 
         //add to Keword list
 //        ws.publicWs = publicWs;
         KeywordsRepo repoKeyword = new KeywordsRepo(this);
         EditText editTextKeyword = (EditText) findViewById(R.id.editTextKeyWords);
         String[] Keywords = editTextKeyword.getText().toString().split(" ");
-        repoKeyword.insert(Keywords, wsID);
+        repoKeyword.insert(Keywords, _Ws_Id);
 
-        Toast.makeText(this, "Workspace added", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Workspace updated", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MyWorkspacesActivity.class);
         startActivity(intent);
+    }
+
+    // Called when the user clicks the add invite button
+    public void addInvite(View view) {
+        EditText editTextInvite = (EditText) findViewById(R.id.editTextInvite);
+        String invite = editTextInvite.getText().toString();
+        if (invite.length() > 0) {
+            inviteList.add(invite);
+            if(inviteList.size()==1) {
+                setInviteList();
+            }
+            adapter.notifyDataSetChanged();
+        }
     }
 
     // Called when the user clicks the cancel button
     public void cancel(View view) {
         Intent intent = new Intent(this, MyWorkspacesActivity.class);
         startActivity(intent);
+    }
+
+    public void setInviteList() {
+            ListView lv = (ListView) findViewById(R.id.listViewInvite);
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+                }});
+            adapter = new InviteListAdapter(inviteList, this);
+    //        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, inviteList);
+            lv.setAdapter(adapter);
     }
 
 
