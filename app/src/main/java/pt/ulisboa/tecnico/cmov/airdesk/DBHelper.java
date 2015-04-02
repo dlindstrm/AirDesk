@@ -11,7 +11,7 @@ public class DBHelper  extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 6;
 
     // Database Name
-    private static final String DATABASE_NAME = "crud.db";
+    private static final String DATABASE_NAME = "airDesk";
 
     public DBHelper(Context context ) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,6 +51,12 @@ public class DBHelper  extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE_INVITE);
 
+        String CREATE_TABLE_KEYWORD = "CREATE TABLE " + Keywords.TABLE  + "("
+                + Keywords.KEY_keyword  + " TEXT, "
+                + Keywords.KEY_workspaceID + " INTEGER)";
+
+        db.execSQL(CREATE_TABLE_KEYWORD);
+
 
     }
 
@@ -59,6 +65,9 @@ public class DBHelper  extends SQLiteOpenHelper {
         // Drop older table if existed, all data will be gone
         db.execSQL("DROP TABLE IF EXISTS " + File.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + User.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Workspace.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Invite.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Keywords.TABLE);
 
         // Create tables again
         onCreate(db);

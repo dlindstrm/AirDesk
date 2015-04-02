@@ -15,4 +15,5 @@
     <string name="title_activity_my_workspaces">My Workspaces</string>
     <string name="title_activity_add_ws">AddWsActivity</string>
     <string name="title_activity_edit_ws">EditWsActivity</string>
+    <string name="title_activity_shared_workspace">SharedWorkspace</string>
 </resources>

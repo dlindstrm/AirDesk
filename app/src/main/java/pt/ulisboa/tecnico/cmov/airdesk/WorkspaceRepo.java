@@ -35,8 +35,10 @@ public class WorkspaceRepo {
         }
 
         public void delete(int ws_Id) {
-
             SQLiteDatabase db = dbHelper.getWritableDatabase();
+            db.delete(Keywords.TABLE, Keywords.KEY_workspaceID + "= ?", new String[] { String.valueOf(ws_Id) });
+            db.delete(Invite.TABLE, Invite.KEY_workspaceID + "= ?", new String[] { String.valueOf(ws_Id) });
+            db.delete(File.TABLE, File.KEY_ws + "= ?", new String[] { String.valueOf(ws_Id) });
             db.delete(Workspace.TABLE, Workspace.KEY_ID + "= ?", new String[] { String.valueOf(ws_Id) });
             db.close(); // Closing database connection
         }
@@ -50,7 +52,7 @@ public class WorkspaceRepo {
 
             db.update(Workspace.TABLE, values, Workspace.KEY_ID + "= ?", new String[] { String.valueOf(ws.ws_ID) });
             db.close(); // Closing database connection
-            return (int) ws.ws_ID;
+            return ws.ws_ID;
         }
 
         public ArrayList<HashMap<String, String>> getWorkspaceList() {
@@ -63,14 +65,14 @@ public class WorkspaceRepo {
                     " FROM " + Workspace.TABLE;
 
             //Workspace ws = new Workspace();
-            ArrayList<HashMap<String, String>> wsList = new ArrayList<HashMap<String, String>>();
+            ArrayList<HashMap<String, String>> wsList = new ArrayList<>();
 
             Cursor cursor = db.rawQuery(selectQuery, null);
             // looping through all rows and adding to list
 
             if (cursor.moveToFirst()) {
                 do {
-                    HashMap<String, String> ws = new HashMap<String, String>();
+                    HashMap<String, String> ws = new HashMap<>();
                     ws.put("id", cursor.getString(cursor.getColumnIndex(Workspace.KEY_ID)));
                     ws.put("title", cursor.getString(cursor.getColumnIndex(Workspace.KEY_title)));
                     wsList.add(ws);

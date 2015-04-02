@@ -73,7 +73,7 @@
             android:name=".AddWsActivity"
             android:label="@string/title_activity_add_ws"
             android:parentActivityName=".MyWorkspacesActivity"
-            android:windowSoftInputMode="">
+            android:windowSoftInputMode="" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pt.ulisboa.tecnico.cmov.airdesk.MyWorkspacesActivity" />
@@ -85,6 +85,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pt.ulisboa.tecnico.cmov.airdesk.MyWorkspacesActivity" />
+        </activity>
+        <activity
+            android:name=".SharedWorkspace"
+            android:label="@string/title_activity_shared_workspace"
+            android:parentActivityName=".SharedWorkspaces" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pt.ulisboa.tecnico.cmov.airdesk.SharedWorkspaces" />
         </activity>
     </application>
 

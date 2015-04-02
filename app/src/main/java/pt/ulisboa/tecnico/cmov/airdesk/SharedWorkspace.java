@@ -17,43 +17,52 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class SharedWorkspaces extends ActionBarActivity {
+public class SharedWorkspace extends ActionBarActivity {
+    private int _Ws_Id=0;
+    TextView file_Id;
 
-    TextView ws_Id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shared_workspaces);
+        setContentView(R.layout.activity_shared_workspace);
 
-        UserRepo userRepo = new UserRepo(this);
-        User user = userRepo.getUser();
+        Intent intent = getIntent();
+        _Ws_Id =intent.getIntExtra("ws_Id", 0);
         NetworkHandler nwHdl = new NetworkHandler();
-        ArrayList<HashMap<String, String>> wsList = nwHdl.getListWs(user.email);
+        nwHdl.getWsById(_Ws_Id);
 
-        if(wsList.size()!=0) {
+
+        FileRepo repo = new FileRepo(this);
+
+        ArrayList<HashMap<String, String>> fileList =  repo.getFileList(_Ws_Id);
+
+
+        if(fileList.size()!=0) {
             ListView lv = (ListView) findViewById(R.id.list);
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                    ws_Id = (TextView) view.findViewById(R.id.file_Id);
-                    String wsId = ws_Id.getText().toString();
-                    Intent objIndent = new Intent(getApplicationContext(),SharedWorkspace.class);
-                    objIndent.putExtra("ws_Id", Integer.parseInt(wsId));
+                    file_Id = (TextView) view.findViewById(R.id.file_Id);
+                    String fileId = file_Id.getText().toString();
+                    Intent objIndent = new Intent(getApplicationContext(),ReadFileActivity.class);
+                    objIndent.putExtra("file_Id", Integer.parseInt( fileId));
                     startActivity(objIndent);
                 }});
-            ListAdapter adapter = new SimpleAdapter( SharedWorkspaces.this,wsList, R.layout.view_file_entry, new String[] { "id","title"}, new int[] {R.id.file_Id, R.id.file_title});
+            ListAdapter adapter = new SimpleAdapter( SharedWorkspace.this,fileList, R.layout.view_file_entry, new String[] { "id","title"}, new int[] {R.id.file_Id, R.id.file_title});
             lv.setAdapter(adapter);
         }
         else{
-            Toast.makeText(this, "No workspaces!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No files!", Toast.LENGTH_SHORT).show();
         }
+
     }
+
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_shared_workspaces, menu);
+        getMenuInflater().inflate(R.menu.menu_shared_workspace, menu);
         return true;
     }
 
