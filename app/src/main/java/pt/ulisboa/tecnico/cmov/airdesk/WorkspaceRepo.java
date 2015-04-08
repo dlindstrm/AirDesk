@@ -65,14 +65,14 @@ public class WorkspaceRepo {
                     " FROM " + Workspace.TABLE;
 
             //Workspace ws = new Workspace();
-            ArrayList<HashMap<String, String>> wsList = new ArrayList<>();
+            ArrayList<HashMap<String, String>> wsList = new ArrayList<HashMap<String, String>>();
 
             Cursor cursor = db.rawQuery(selectQuery, null);
             // looping through all rows and adding to list
 
             if (cursor.moveToFirst()) {
                 do {
-                    HashMap<String, String> ws = new HashMap<>();
+                    HashMap<String, String> ws = new HashMap<String, String>();
                     ws.put("id", cursor.getString(cursor.getColumnIndex(Workspace.KEY_ID)));
                     ws.put("title", cursor.getString(cursor.getColumnIndex(Workspace.KEY_title)));
                     wsList.add(ws);
