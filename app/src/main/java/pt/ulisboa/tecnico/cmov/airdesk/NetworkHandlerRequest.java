@@ -24,14 +24,14 @@ public class NetworkHandlerRequest {
                 File.TABLE +
                 " WHERE " + File.KEY_ws + "=?";
 
-        ArrayList<HashMap<String, String>> listOfFiles = new ArrayList<>();
+        ArrayList<HashMap<String, String>> listOfFiles = new ArrayList<HashMap<String, String>>();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { Integer.toString(wsId) });
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> file = new HashMap<>();
+                HashMap<String, String> file = new HashMap<String, String>();
                 file.put("id", cursor.getString(cursor.getColumnIndex(File.KEY_ID)));
                 file.put("title", cursor.getString(cursor.getColumnIndex(File.KEY_title)));
                 listOfFiles.add(file);
@@ -64,14 +64,14 @@ public class NetworkHandlerRequest {
                 "." + Workspace.KEY_ID +
                 " WHERE " + Invite.KEY_email + "=?";
 
-        ArrayList<HashMap<String, String>> listOfWs = new ArrayList<>();
+        ArrayList<HashMap<String, String>> listOfWs = new ArrayList<HashMap<String, String>>();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { email });
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> ws = new HashMap<>();
+                HashMap<String, String> ws = new HashMap<String, String>();
                 ws.put("id", cursor.getString(cursor.getColumnIndex(Workspace.KEY_ID)));
                 ws.put("title", cursor.getString(cursor.getColumnIndex(File.KEY_title)));
                 listOfWs.add(ws);
