@@ -20,6 +20,11 @@ public class AddFileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_add_file);
         Intent wsIntent = getIntent();
         _Ws_Id = wsIntent.getIntExtra("ws_Id", 0);
+
+        WorkspaceRepo wsRepo = new WorkspaceRepo(this);
+        Workspace workspace = wsRepo.getWorkspaceById(_Ws_Id);
+        String apa = Integer.toString(workspace.sizeLimit);
+        Toast.makeText(this, apa, Toast.LENGTH_SHORT).show();
     }
 
 
