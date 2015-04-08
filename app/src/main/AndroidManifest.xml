@@ -42,6 +42,15 @@
                 android:value="pt.ulisboa.tecnico.cmov.airdesk.MyWorkspaceActivity" />
         </activity>
         <activity
+            android:name=".ReadFileActivityNetwork"
+            android:label="@string/title_activity_read_file"
+            android:parentActivityName=".MyWorkspaceActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pt.ulisboa.tecnico.cmov.airdesk.MyWorkspaceActivity" />
+        </activity>
+
+        <activity
             android:name=".AddFileActivity"
             android:label="@string/title_activity_add_file"
             android:parentActivityName=".MyWorkspaceActivity" >

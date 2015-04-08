@@ -59,7 +59,9 @@
         android:layout_gravity="left|center_vertical"
         android:layout_below="@+id/listViewInvite"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/buttonAddInvite"
+        android:layout_toLeftOf="@+id/buttonAddInvite" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -70,8 +72,10 @@
         android:onClick="addInvite"
         android:layout_gravity="right|center_vertical"
         android:layout_alignBottom="@+id/editTextInvite"
-        android:layout_toLeftOf="@+id/cancelBtn"
-        android:layout_toStartOf="@+id/cancelBtn" />
+        android:layout_alignRight="@+id/listViewInvite"
+        android:layout_alignEnd="@+id/listViewInvite"
+        android:layout_alignLeft="@+id/cancelBtn"
+        android:layout_alignStart="@+id/cancelBtn" />
 
     <ListView
         android:layout_width="wrap_content"
