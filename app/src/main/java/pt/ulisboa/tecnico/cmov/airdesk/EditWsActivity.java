@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 public class EditWsActivity extends ActionBarActivity {
     private int _Ws_Id=0;
-    ArrayList<String> inviteList = new ArrayList<>();
+    ArrayList<String> inviteList = new ArrayList<String>();
     InviteListAdapter adapter;
 
 
