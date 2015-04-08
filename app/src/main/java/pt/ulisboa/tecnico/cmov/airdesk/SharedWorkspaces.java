@@ -19,6 +19,8 @@ import java.util.HashMap;
 
 public class SharedWorkspaces extends ActionBarActivity {
 
+    //Hej
+
     TextView ws_Id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
