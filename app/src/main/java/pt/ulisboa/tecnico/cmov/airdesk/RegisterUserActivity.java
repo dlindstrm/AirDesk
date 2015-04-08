@@ -43,16 +43,23 @@ public class RegisterUserActivity extends ActionBarActivity {
 
     // Called when the user clicks the sharedWs button
     public void insertUser(View view) {
+
         User user = new User();
         EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         EditText editTextFullName = (EditText) findViewById(R.id.editTextFullName);
-        user.email = editTextEmail.getText().toString();
-        user.fullName = editTextFullName.getText().toString();
-        UserRepo repo = new UserRepo(this);
-        repo.insert(user);
-        Toast.makeText(this, "Account successfully created", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        if (!checkIfMail(editTextEmail.getText().toString())){
+            findViewById(R.id.textViewFormat).setVisibility(View.VISIBLE);
+        }
+        else {
+
+            user.email = editTextEmail.getText().toString();
+            user.fullName = editTextFullName.getText().toString();
+            UserRepo repo = new UserRepo(this);
+            repo.insert(user);
+            Toast.makeText(this, "Account successfully created", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -61,5 +68,14 @@ public class RegisterUserActivity extends ActionBarActivity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+    public static boolean checkIfMail(String m){
+        if (!m.contains("@")) return false; //email must contain an @
+
+        String[] mArray = m.split("@");
+        if (!mArray[1].contains(".")) return false; //There must be a dot after the @
+
+
+        return true;
     }
 }
