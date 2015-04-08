@@ -41,7 +41,7 @@ public class InviteRepo {
                 + " WHERE " +
                 Invite.KEY_workspaceID + "=?";
 
-        ArrayList<String> inviteList = new ArrayList<>();
+        ArrayList<String> inviteList = new ArrayList<String>();
 
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(WsId) } );
