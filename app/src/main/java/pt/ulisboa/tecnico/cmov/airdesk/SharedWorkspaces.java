@@ -27,8 +27,13 @@ public class SharedWorkspaces extends ActionBarActivity {
 
         UserRepo userRepo = new UserRepo(this);
         User user = userRepo.getUser();
-        NetworkHandler nwHdl = new NetworkHandler();
+
+
+        //network get list of workspaces
+        NetworkHandlerRequest nwHdl = new NetworkHandlerRequest();
         ArrayList<HashMap<String, String>> wsList = nwHdl.getListWs(user.email);
+
+
 
         if(wsList.size()!=0) {
             ListView lv = (ListView) findViewById(R.id.list);

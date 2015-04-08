@@ -28,13 +28,10 @@ public class SharedWorkspace extends ActionBarActivity {
 
         Intent intent = getIntent();
         _Ws_Id =intent.getIntExtra("ws_Id", 0);
-        NetworkHandler nwHdl = new NetworkHandler();
-        nwHdl.getWsById(_Ws_Id);
 
-
-        FileRepo repo = new FileRepo(this);
-
-        ArrayList<HashMap<String, String>> fileList =  repo.getFileList(_Ws_Id);
+        //Network get list of files in workspace
+        NetworkHandlerRequest nwHdl = new NetworkHandlerRequest();
+        ArrayList<HashMap<String, String>> fileList = nwHdl.getWsById(_Ws_Id);
 
 
         if(fileList.size()!=0) {
@@ -44,9 +41,13 @@ public class SharedWorkspace extends ActionBarActivity {
                 public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
                     file_Id = (TextView) view.findViewById(R.id.file_Id);
                     String fileId = file_Id.getText().toString();
-                    Intent objIndent = new Intent(getApplicationContext(),ReadFileActivity.class);
+
+
+                    //Network get the file
+                    Intent objIndent = new Intent(getApplicationContext(),ReadFileActivityNetwork.class);
                     objIndent.putExtra("file_Id", Integer.parseInt( fileId));
                     startActivity(objIndent);
+
                 }});
             ListAdapter adapter = new SimpleAdapter( SharedWorkspace.this,fileList, R.layout.view_file_entry, new String[] { "id","title"}, new int[] {R.id.file_Id, R.id.file_title});
             lv.setAdapter(adapter);

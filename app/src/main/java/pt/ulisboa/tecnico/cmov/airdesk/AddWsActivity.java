@@ -82,7 +82,6 @@ public class AddWsActivity extends ActionBarActivity {
         int wsID = repoWs.insert(ws);
 
         Toast.makeText(this, " " + ws.publicWs , Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, " " + ws.title , Toast.LENGTH_SHORT).show();
 
 
         //add to Invite list
