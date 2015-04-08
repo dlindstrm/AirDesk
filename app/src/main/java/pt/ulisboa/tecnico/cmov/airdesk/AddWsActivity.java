@@ -28,7 +28,7 @@ public class AddWsActivity extends ActionBarActivity {
 
     ArrayList<String> InviteList = new ArrayList<String>();
     int publicWs;
-    long megAvailable;
+    long kbAvailable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +37,10 @@ public class AddWsActivity extends ActionBarActivity {
 
         StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
         long bytesAvailable = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
-        megAvailable = bytesAvailable / (1024 * 1024);
-        String freeStorage = Long.toString(megAvailable);
+        kbAvailable = bytesAvailable / 1024;
+        String freeStorage = Long.toString(kbAvailable);
         TextView sizeLabel = (TextView) findViewById(R.id.textViewSizeLabel);
-        sizeLabel.setText("Max " + freeStorage + " MB");
+        sizeLabel.setText("Max " + freeStorage + " KB");
 
         final EditText keyWords = (EditText) findViewById(R.id.editTextKeyWords);
         CheckBox CheckboxPublic = (CheckBox) findViewById(R.id.checkBoxPublic);
@@ -95,7 +95,7 @@ public class AddWsActivity extends ActionBarActivity {
         EditText editTextSizeLimit = (EditText) findViewById(R.id.editTextSizeLimit);
         long sizeLimit = Long.parseLong(editTextSizeLimit.getText().toString());
 
-        if(sizeLimit <= megAvailable) {
+        if(sizeLimit <= kbAvailable) {
             WorkspaceRepo repoWs = new WorkspaceRepo(this);
             ws.publicWs = publicWs;
             ws.sizeLimit = (int) sizeLimit;

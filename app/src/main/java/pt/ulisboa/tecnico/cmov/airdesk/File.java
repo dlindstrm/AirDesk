@@ -24,7 +24,7 @@ public class File {
     public int size;
 
     public void setSize() {
-        size = title.length()+content.length();
+        size = ((title.length()+content.length())*2)/1024;
     }
 
 }
