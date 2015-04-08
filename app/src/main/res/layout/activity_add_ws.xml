@@ -87,6 +87,39 @@
         android:layout_alignBottom="@+id/editTextInvite"
         android:onClick="addInvite" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:hint="Size limit"
+        android:id="@+id/editTextSizeLimit"
+        android:layout_below="@+id/checkBoxPublic"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="61dp"
+        android:layout_alignRight="@+id/editTextTitle"
+        android:layout_alignEnd="@+id/editTextTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewSizeLabel"
+        android:layout_below="@+id/editTextSizeLimit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/cancelBtn"
+        android:layout_alignEnd="@+id/cancelBtn" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="MB"
+        android:id="@+id/textView"
+        android:layout_above="@+id/textViewSizeLabel"
+        android:layout_toRightOf="@+id/editTextSizeLimit"
+        android:layout_toEndOf="@+id/editTextSizeLimit" />
 
 
 </RelativeLayout>

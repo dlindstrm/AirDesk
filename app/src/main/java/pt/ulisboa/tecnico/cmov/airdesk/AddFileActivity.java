@@ -12,10 +12,14 @@ import android.widget.Toast;
 
 public class AddFileActivity extends ActionBarActivity {
 
+    private int _Ws_Id=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_file);
+        Intent wsIntent = getIntent();
+        _Ws_Id = wsIntent.getIntExtra("ws_Id", 0);
     }
 
 
@@ -58,20 +62,29 @@ public class AddFileActivity extends ActionBarActivity {
         file.title = editTextTitle.getText().toString();
         file.content = editTextContent.getText().toString();
         file.author = user.email;
-        Intent wsIntent = getIntent();
-        int ws = wsIntent.getIntExtra("ws_Id", 0);
-        file.ws = ws;
+        file.setSize();
+
+        file.ws = _Ws_Id;
+        WorkspaceRepo wsRepo = new WorkspaceRepo(this);
+        Workspace workspace = wsRepo.getWorkspaceById(_Ws_Id);
+
         FileRepo repo = new FileRepo(this);
-        repo.insert(file);
-        Toast.makeText(this, "File added", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MyWorkspaceActivity.class);
-        intent.putExtra("ws_Id",ws);
-        startActivity(intent);
+        if(workspace.sizeLimit-repo.getFileSizes(_Ws_Id) >= file.size) {
+            repo.insert(file);
+            Toast.makeText(this, "File added", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MyWorkspaceActivity.class);
+            intent.putExtra("ws_Id", _Ws_Id);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "File is too big.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // Called when the user clicks the cancel button
     public void cancel(View view) {
         Intent intent = new Intent(this, MyWorkspaceActivity.class);
+        intent.putExtra("ws_Id", _Ws_Id);
         startActivity(intent);
     }
 }
