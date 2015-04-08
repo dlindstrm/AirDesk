@@ -47,7 +47,7 @@ public class RegisterUserActivity extends ActionBarActivity {
         User user = new User();
         EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         EditText editTextFullName = (EditText) findViewById(R.id.editTextFullName);
-        if (!checkIfMail(editTextEmail.getText().toString())){
+        if (!User.isEmailAddress(editTextEmail.getText().toString())){
             findViewById(R.id.textViewFormat).setVisibility(View.VISIBLE);
         }
         else {
@@ -69,13 +69,5 @@ public class RegisterUserActivity extends ActionBarActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-    public static boolean checkIfMail(String m){
-        if (!m.contains("@")) return false; //email must contain an @
 
-        String[] mArray = m.split("@");
-        if (!mArray[1].contains(".")) return false; //There must be a dot after the @
-
-
-        return true;
-    }
 }
