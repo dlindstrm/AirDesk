@@ -6,9 +6,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -37,7 +43,7 @@ public class AddWsActivity extends ActionBarActivity {
                 // checkbox status is changed from uncheck to checked.
                 if (!isChecked) {
                     publicWs = 0;
-                    keyWords.setVisibility(View.GONE);
+                    keyWords.setVisibility(View.INVISIBLE);
                 } else {
                     publicWs = 1;
                     keyWords.setVisibility(View.VISIBLE);
@@ -108,13 +114,22 @@ public class AddWsActivity extends ActionBarActivity {
     public void addInvite(View view) {
         EditText editTextInvite = (EditText) findViewById(R.id.editTextInvite);
         String Invite = editTextInvite.getText().toString();
-        if(!Invite.isEmpty()) {
-            //add Invite email
-            InviteList.add(Invite);
-            Toast.makeText(this, Invite + " is added", Toast.LENGTH_SHORT).show();
-            editTextInvite.setText("");
-        }else{
-            Toast.makeText(this, "You have to add a email", Toast.LENGTH_SHORT).show();
+        if (!User.isEmailAddress(Invite)){
+            findViewById(R.id.textViewFormat).setVisibility(View.VISIBLE);
+            return;
         }
+        else{
+            findViewById(R.id.textViewFormat).setVisibility(View.INVISIBLE);
+        }
+
+        //add Invite email
+        InviteList.add(Invite);
+        editTextInvite.setText("");
+
+        ListView lv = (ListView) findViewById(R.id.listViewInvites);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, InviteList);
+        lv.setAdapter(adapter);
+
     }
 }
