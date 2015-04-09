@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.cmov.airdesk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,12 +25,21 @@ public class EditWsActivity extends ActionBarActivity {
     private int _Ws_Id=0;
     ArrayList<String> inviteList = new ArrayList<String>();
     InviteListAdapter adapter;
+    long bytesAvailable;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_ws);
+
+        StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+        bytesAvailable = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
+        long mbAvailable = bytesAvailable / (1024*1024);
+        String freeStorage = Long.toString(mbAvailable);
+        TextView sizeLabel = (TextView) findViewById(R.id.textViewSizeLabel);
+        sizeLabel.setText("Max " + freeStorage + " MB");
+
 
         Intent intent = getIntent();
         _Ws_Id = intent.getIntExtra("ws_Id", 0);
@@ -37,8 +48,9 @@ public class EditWsActivity extends ActionBarActivity {
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         CheckBox checkBoxPublic = (CheckBox) findViewById(R.id.checkBoxPublic);
         editTextTitle.setText(ws.title);
+        EditText editTextSizeLimit = (EditText) findViewById(R.id.editTextSizeLimit);
+        editTextSizeLimit.setText(Integer.toString(ws.sizeLimit));
 
-        Toast.makeText(this, " " + ws.publicWs , Toast.LENGTH_SHORT).show();
 
 //        boolean publicWs;
 //        if(ws.publicWs != 0){publicWs = true;}
@@ -84,24 +96,31 @@ public class EditWsActivity extends ActionBarActivity {
 
         EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         ws.title = editTextTitle.getText().toString();
-        repo.update(ws);
+        EditText editTextSizeLimit = (EditText) findViewById(R.id.editTextSizeLimit);
+        long sizeLimit = Long.parseLong(editTextSizeLimit.getText().toString());
 
-        //Insert list
-        if(inviteList.size()>0) {
-            InviteRepo repoInvite = new InviteRepo(this);
-            repoInvite.insert(inviteList, _Ws_Id);
-        }
+        if (sizeLimit <= bytesAvailable) {
+            ws.sizeLimit = (int) sizeLimit;
+            repo.update(ws);
 
-        //add to Keword list
+
+            //Insert list
+            if (inviteList.size() > 0) {
+                InviteRepo repoInvite = new InviteRepo(this);
+                repoInvite.insert(inviteList, _Ws_Id);
+            }
+
+            //add to Keword list
 //        ws.publicWs = publicWs;
-        KeywordsRepo repoKeyword = new KeywordsRepo(this);
-        EditText editTextKeyword = (EditText) findViewById(R.id.editTextKeyWords);
-        String[] Keywords = editTextKeyword.getText().toString().split(" ");
-        repoKeyword.insert(Keywords, _Ws_Id);
+            KeywordsRepo repoKeyword = new KeywordsRepo(this);
+            EditText editTextKeyword = (EditText) findViewById(R.id.editTextKeyWords);
+            String[] Keywords = editTextKeyword.getText().toString().split(" ");
+            repoKeyword.insert(Keywords, _Ws_Id);
 
-        Toast.makeText(this, "Workspace updated", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MyWorkspacesActivity.class);
-        startActivity(intent);
+            Toast.makeText(this, "Workspace updated", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MyWorkspacesActivity.class);
+            startActivity(intent);
+        }
     }
 
     // Called when the user clicks the add invite button

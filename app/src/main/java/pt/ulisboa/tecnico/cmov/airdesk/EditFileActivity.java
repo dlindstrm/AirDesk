@@ -67,11 +67,22 @@ public class EditFileActivity extends ActionBarActivity {
         file.title = editTextTitle.getText().toString();
         file.content = editTextContent.getText().toString();
 
-        repo.update(file);
-        Toast.makeText(this, "File updated", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MyWorkspaceActivity.class);
-        intent.putExtra("ws_Id",file.ws);
-        startActivity(intent);
+        WorkspaceRepo wsRepo = new WorkspaceRepo(this);
+        Workspace workspace = wsRepo.getWorkspaceById(file.ws);
+        int oldSize = file.size;
+        file.setSize();
+        if(workspace.sizeLimit-repo.getFileSizes(file.ws)+oldSize >= file.size) {
+            repo.update(file);
+            Toast.makeText(this, "File updated", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MyWorkspaceActivity.class);
+            intent.putExtra("ws_Id",file.ws);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "File is too big.", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     // Called when the user clicks the cancel button

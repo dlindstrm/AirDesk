@@ -114,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="KB"
+        android:text="Bytes"
         android:id="@+id/textView"
         android:layout_below="@+id/textViewFormat"
         android:layout_alignRight="@+id/textViewSizeLabel"
