@@ -75,8 +75,8 @@ public class AddFileActivity extends ActionBarActivity {
 
     // Called when the user clicks the save button
     public void saveFile(View view) {
-        User user = new User(this);
-        user = user.getUser();
+        UserRepo userrepo = new UserRepo(this);
+        User user = userrepo.getUser();
 
         File file = new File();
 
