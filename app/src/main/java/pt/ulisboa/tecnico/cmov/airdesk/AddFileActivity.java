@@ -3,9 +3,12 @@ package pt.ulisboa.tecnico.cmov.airdesk;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,6 +23,26 @@ public class AddFileActivity extends ActionBarActivity {
         setContentView(R.layout.activity_add_file);
         Intent wsIntent = getIntent();
         _Ws_Id = wsIntent.getIntExtra("ws_Id", 0);
+
+
+        final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        TextWatcher tW = new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void afterTextChanged(Editable s) {
+                Button b = (Button) findViewById(R.id.saveBtn);
+                if (!editTextTitle.getText().toString().isEmpty()){
+                    b.setEnabled(true);
+                }
+                else b.setEnabled(false);
+            }
+        };
+
+        editTextTitle.addTextChangedListener(tW);
+
     }
 
 
@@ -57,7 +80,7 @@ public class AddFileActivity extends ActionBarActivity {
 
         File file = new File();
 
-        EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         EditText editTextContent = (EditText) findViewById(R.id.editTextContent);
         file.title = editTextTitle.getText().toString();
         file.content = editTextContent.getText().toString();

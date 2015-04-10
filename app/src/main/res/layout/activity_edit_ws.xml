@@ -14,7 +14,9 @@
         android:onClick="saveWs"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:enabled="true"
+        android:clickable="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -139,6 +141,16 @@
         android:layout_alignRight="@+id/listViewInvite"
         android:layout_alignEnd="@+id/listViewInvite"
         android:layout_alignTop="@+id/editTextSizeLimit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invalid email format"
+        android:id="@+id/textViewFormat"
+        android:textColor="#ffff0002"
+        android:visibility="invisible"
+        android:layout_below="@+id/editTextInvite"
+        android:layout_toEndOf="@+id/editTextTitle" />
 
 
 </RelativeLayout>

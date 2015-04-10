@@ -3,9 +3,12 @@ package pt.ulisboa.tecnico.cmov.airdesk;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,6 +19,26 @@ public class RegisterUserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
+
+        final EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        final EditText editTextFullName = (EditText) findViewById(R.id.editTextFullName);
+
+        TextWatcher tW = new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void afterTextChanged(Editable s) {
+                Button b = (Button) findViewById(R.id.buttonSave);
+                if (User.isEmailAddress(editTextEmail.getText().toString()) && !editTextFullName.getText().toString().isEmpty()){
+                    b.setEnabled(true);
+                }
+                else b.setEnabled(false);
+            }
+        };
+        editTextEmail.addTextChangedListener(tW);
+        editTextFullName.addTextChangedListener(tW);
     }
 
 

@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -34,7 +37,7 @@ public class EditWsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_edit_ws);
 
         StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-        bytesAvailable = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
+        bytesAvailable = (long)stat.getBlockSizeLong() * (long)stat.getAvailableBlocksLong();
         long mbAvailable = bytesAvailable / (1024*1024);
         String freeStorage = Long.toString(mbAvailable);
         TextView sizeLabel = (TextView) findViewById(R.id.textViewSizeLabel);
@@ -45,12 +48,28 @@ public class EditWsActivity extends ActionBarActivity {
         _Ws_Id = intent.getIntExtra("ws_Id", 0);
         WorkspaceRepo repo = new WorkspaceRepo(this);
         Workspace ws = repo.getWorkspaceById(_Ws_Id);
-        EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         CheckBox checkBoxPublic = (CheckBox) findViewById(R.id.checkBoxPublic);
         editTextTitle.setText(ws.title);
-        EditText editTextSizeLimit = (EditText) findViewById(R.id.editTextSizeLimit);
+        final EditText editTextSizeLimit = (EditText) findViewById(R.id.editTextSizeLimit);
         editTextSizeLimit.setText(Integer.toString(ws.sizeLimit));
 
+        TextWatcher tW = new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void afterTextChanged(Editable s) {
+                Button b = (Button) findViewById(R.id.saveBtn);
+                if (!editTextSizeLimit.getText().toString().isEmpty() && !editTextTitle.getText().toString().isEmpty()){
+                    b.setEnabled(true);
+                }
+                else b.setEnabled(false);
+            }
+        };
+        editTextSizeLimit.addTextChangedListener(tW);
+        editTextTitle.addTextChangedListener(tW);
 
 //        boolean publicWs;
 //        if(ws.publicWs != 0){publicWs = true;}
@@ -127,6 +146,13 @@ public class EditWsActivity extends ActionBarActivity {
     public void addInvite(View view) {
         EditText editTextInvite = (EditText) findViewById(R.id.editTextInvite);
         String invite = editTextInvite.getText().toString();
+        if (!User.isEmailAddress(invite)){
+            findViewById(R.id.textViewFormat).setVisibility(View.VISIBLE);
+            return;
+        }
+        else{
+            findViewById(R.id.textViewFormat).setVisibility(View.INVISIBLE);
+        }
         if (invite.length() > 0) {
             inviteList.add(invite);
             if(inviteList.size()==1) {

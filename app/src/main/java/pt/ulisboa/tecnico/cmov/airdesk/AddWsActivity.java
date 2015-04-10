@@ -5,11 +5,14 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -59,6 +62,26 @@ public class AddWsActivity extends ActionBarActivity {
                 }
             }
         });
+
+
+        final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        final EditText editTextSizeLimit = (EditText) findViewById(R.id.editTextSizeLimit);
+        TextWatcher tW = new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void afterTextChanged(Editable s) {
+                Button b = (Button) findViewById(R.id.saveBtn);
+                if (!editTextSizeLimit.getText().toString().isEmpty() && !editTextTitle.getText().toString().isEmpty()){
+                    b.setEnabled(true);
+                }
+                else b.setEnabled(false);
+            }
+        };
+        editTextSizeLimit.addTextChangedListener(tW);
+        editTextTitle.addTextChangedListener(tW);
     }
 
 

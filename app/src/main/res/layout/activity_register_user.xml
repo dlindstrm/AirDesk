@@ -37,7 +37,8 @@
         android:id="@+id/buttonSave"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="insertUser"/>
+        android:onClick="insertUser"
+        android:enabled="false" />
 
     <TextView
         android:layout_width="wrap_content"
