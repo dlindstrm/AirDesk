@@ -121,6 +121,7 @@ public class FileRepo {
     }
 
 //    public boolean getExistanceOfFileByNameInWorkspace(int Id,int wsId){
+
 //        SQLiteDatabase db = dbHelper.getReadableDatabase();
 //        String selectQuery =  "SELECT * FROM " +
 //                File.TABLE
