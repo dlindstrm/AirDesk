@@ -82,12 +82,13 @@
             android:name=".AddWsActivity"
             android:label="@string/title_activity_add_ws"
             android:parentActivityName=".MyWorkspacesActivity"
-            android:windowSoftInputMode="" >
+            android:windowSoftInputMode="adjustPan" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pt.ulisboa.tecnico.cmov.airdesk.MyWorkspacesActivity" />
         </activity>
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".EditWsActivity"
             android:label="@string/title_activity_edit_ws"
             android:parentActivityName=".MyWorkspacesActivity" >

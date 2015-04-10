@@ -36,7 +36,7 @@ public class AddWsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_add_ws);
 
         StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-        bytesAvailable = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
+        bytesAvailable = (long)stat.getBlockSizeLong() * (long)stat.getAvailableBlocksLong();
         long mbAvailable = bytesAvailable / (1024*1024);
         String freeStorage = Long.toString(mbAvailable);
         TextView sizeLabel = (TextView) findViewById(R.id.textViewSizeLabel);
