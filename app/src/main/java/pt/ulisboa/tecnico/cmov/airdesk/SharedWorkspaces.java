@@ -27,8 +27,8 @@ public class SharedWorkspaces extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shared_workspaces);
 
-        User user = new User(this);
-        user = user.getUser();
+        UserRepo userRepo = new UserRepo(this);
+        User user = userRepo.getUser();
 
 
         //network get list of workspaces
@@ -75,11 +75,6 @@ public class SharedWorkspaces extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        else if (id == R.id.action_add) {
-            Intent intent = new Intent(this,AddWsActivity.class);
-            startActivity(intent);
-        }
-
 
         return super.onOptionsItemSelected(item);
     }

@@ -18,8 +18,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        User user = new User(this);
-        user = user.getUser();
+        UserRepo repo = new UserRepo(this);
+        User user = repo.getUser();
         if(user.email == null ) {
             Intent intent = new Intent(this, RegisterUserActivity.class);
             startActivity(intent);
