@@ -120,6 +120,38 @@ public class FileRepo {
         return file;
     }
 
+//    public boolean getExistanceOfFileByNameInWorkspace(int Id,int wsId){
+
+//        SQLiteDatabase db = dbHelper.getReadableDatabase();
+//        String selectQuery =  "SELECT * FROM " +
+//                File.TABLE
+//                + " WHERE " +
+//                File.KEY_ID + "=?"
+//                + " AND " +
+//                File.KEY_ws + "=?";
+//
+//        File file = new File();
+//
+//        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(Id) } );
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                file.file_ID =cursor.getInt(cursor.getColumnIndex(File.KEY_ID));
+//                file.title =cursor.getString(cursor.getColumnIndex(File.KEY_title));
+//                file.content =cursor.getString(cursor.getColumnIndex(File.KEY_content));
+//                file.author =cursor.getString(cursor.getColumnIndex(File.KEY_author));
+//                file.createdAt =cursor.getString(cursor.getColumnIndex(File.KEY_createdAt));
+//                file.ws =cursor.getInt(cursor.getColumnIndex(File.KEY_ws));
+//                file.size = cursor.getInt(cursor.getColumnIndex(File.KEY_size));
+//
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+//        db.close();
+//        return file;
+//    }
+
     public int getFileSizes(int Id){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery =  "SELECT " +
