@@ -16,6 +16,7 @@ import android.widget.Toast;
 public class EditFileActivity extends ActionBarActivity {
 
     private int _File_Id=0;
+    private String originalTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class EditFileActivity extends ActionBarActivity {
         editTextContent.setText(file.content);
         editTextTitle.setText(file.title);
 
+        originalTitle = file.title;
 
         ((Button) findViewById(R.id.saveBtn)).setEnabled(true); //Ok to save without making any edits
         TextWatcher tW = new TextWatcher(){
@@ -89,6 +91,11 @@ public class EditFileActivity extends ActionBarActivity {
         EditText editTextContent = (EditText) findViewById(R.id.editTextContent);
         file.title = editTextTitle.getText().toString();
         file.content = editTextContent.getText().toString();
+
+        if (!file.title.equals(originalTitle) && repo.existsAFileWithTitleInWorkspace(file.title,file.ws)){
+            Toast.makeText(this, "File with the same name already exists.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         WorkspaceRepo wsRepo = new WorkspaceRepo(this);
         Workspace workspace = wsRepo.getWorkspaceById(file.ws);
