@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.cmov.airdesk;
 import java.util.ArrayDeque;
 
 public class User {
+    //This is a comment
     // Labels table name
     public static final String TABLE = "User";
 
