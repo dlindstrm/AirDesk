@@ -68,7 +68,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Key Words"
+        android:hint="Keywords"
         android:ems="10"
         android:id="@+id/editTextKeyWords"
         android:layout_below="@+id/checkBoxPublic"
