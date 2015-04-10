@@ -20,10 +20,10 @@ public class AddFileActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("New File");
         setContentView(R.layout.activity_add_file);
         Intent wsIntent = getIntent();
         _Ws_Id = wsIntent.getIntExtra("ws_Id", 0);
-
 
         final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         TextWatcher tW = new TextWatcher(){
@@ -61,11 +61,11 @@ public class AddFileActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
-        else if (id == android.R.id.home) {
+        if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }

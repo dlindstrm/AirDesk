@@ -26,7 +26,7 @@ public class MyWorkspacesActivity extends ActionBarActivity {
         setContentView(R.layout.activity_my_workspaces);
             WorkspaceRepo repo = new WorkspaceRepo(this);
 
-            ArrayList<HashMap<String, String>> wsList =  repo.getWorkspaceList();
+            ArrayList<HashMap<String, String>> wsList = repo.getWorkspaceList();
 
 
             if(wsList.size()!=0) {
@@ -64,15 +64,15 @@ public class MyWorkspacesActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
-        else if (id == R.id.action_add) {
+        if (id == R.id.action_add) {
             Intent intent = new Intent(this,AddWsActivity.class);
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
-              }
+}
