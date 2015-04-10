@@ -20,10 +20,10 @@ public class AddFileActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("New File");
         setContentView(R.layout.activity_add_file);
         Intent wsIntent = getIntent();
         _Ws_Id = wsIntent.getIntExtra("ws_Id", 0);
-
 
         final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         TextWatcher tW = new TextWatcher(){
@@ -61,11 +61,11 @@ public class AddFileActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
-        else if (id == android.R.id.home) {
+        if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }
@@ -75,8 +75,9 @@ public class AddFileActivity extends ActionBarActivity {
 
     // Called when the user clicks the save button
     public void saveFile(View view) {
-        UserRepo userrepo = new UserRepo(this);
-        User user = userrepo.getUser();
+
+        UserRepo userRepo = new UserRepo(this);
+        User user = userRepo.getUser();
 
         File file = new File();
 
@@ -92,6 +93,12 @@ public class AddFileActivity extends ActionBarActivity {
         Workspace workspace = wsRepo.getWorkspaceById(_Ws_Id);
 
         FileRepo repo = new FileRepo(this);
+
+        if (repo.existsAFileWithTitleInWorkspace(file.title,file.ws)){
+            Toast.makeText(this, "File with the same name already exists.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if(workspace.sizeLimit-repo.getFileSizes(_Ws_Id) >= file.size) {
             repo.insert(file);
             Toast.makeText(this, "File added", Toast.LENGTH_SHORT).show();
