@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.cmov.airdesk;
 
 public class User {
+    //This is a comment
     // Labels table name
     public static final String TABLE = "User";
 
