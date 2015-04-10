@@ -75,6 +75,7 @@ public class AddFileActivity extends ActionBarActivity {
 
     // Called when the user clicks the save button
     public void saveFile(View view) {
+
         UserRepo userRepo = new UserRepo(this);
         User user = userRepo.getUser();
 
@@ -92,6 +93,12 @@ public class AddFileActivity extends ActionBarActivity {
         Workspace workspace = wsRepo.getWorkspaceById(_Ws_Id);
 
         FileRepo repo = new FileRepo(this);
+
+        if (repo.existsAFileWithTitleInWorkspace(file.title,file.ws)){
+            Toast.makeText(this, "File with the same name already exists.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if(workspace.sizeLimit-repo.getFileSizes(_Ws_Id) >= file.size) {
             repo.insert(file);
             Toast.makeText(this, "File added", Toast.LENGTH_SHORT).show();
