@@ -3,19 +3,46 @@ package pt.ulisboa.tecnico.cmov.airdesk;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 
 public class AddFileActivity extends ActionBarActivity {
 
+    private int _Ws_Id=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_file);
+        Intent wsIntent = getIntent();
+        _Ws_Id = wsIntent.getIntExtra("ws_Id", 0);
+
+
+        final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        TextWatcher tW = new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void afterTextChanged(Editable s) {
+                Button b = (Button) findViewById(R.id.saveBtn);
+                if (!editTextTitle.getText().toString().isEmpty()){
+                    b.setEnabled(true);
+                }
+                else b.setEnabled(false);
+            }
+        };
+
+        editTextTitle.addTextChangedListener(tW);
+
     }
 
 
@@ -53,25 +80,34 @@ public class AddFileActivity extends ActionBarActivity {
 
         File file = new File();
 
-        EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         EditText editTextContent = (EditText) findViewById(R.id.editTextContent);
         file.title = editTextTitle.getText().toString();
         file.content = editTextContent.getText().toString();
         file.author = user.email;
-        Intent wsIntent = getIntent();
-        int ws = wsIntent.getIntExtra("ws_Id", 0);
-        file.ws = ws;
+        file.setSize();
+
+        file.ws = _Ws_Id;
+        WorkspaceRepo wsRepo = new WorkspaceRepo(this);
+        Workspace workspace = wsRepo.getWorkspaceById(_Ws_Id);
+
         FileRepo repo = new FileRepo(this);
-        repo.insert(file);
-        Toast.makeText(this, "File added", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MyWorkspaceActivity.class);
-        intent.putExtra("ws_Id",ws);
-        startActivity(intent);
+        if(workspace.sizeLimit-repo.getFileSizes(_Ws_Id) >= file.size) {
+            repo.insert(file);
+            Toast.makeText(this, "File added", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MyWorkspaceActivity.class);
+            intent.putExtra("ws_Id", _Ws_Id);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "File is too big.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // Called when the user clicks the cancel button
     public void cancel(View view) {
         Intent intent = new Intent(this, MyWorkspaceActivity.class);
+        intent.putExtra("ws_Id", _Ws_Id);
         startActivity(intent);
     }
 }

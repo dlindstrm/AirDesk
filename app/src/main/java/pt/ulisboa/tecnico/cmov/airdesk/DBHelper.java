@@ -8,7 +8,7 @@ public class DBHelper  extends SQLiteOpenHelper {
     //version number to upgrade database version
     //each time if you Add, Edit table, you need to change the
     //version number.
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 12;
 
     // Database Name
     private static final String DATABASE_NAME = "airDesk";
@@ -27,15 +27,17 @@ public class DBHelper  extends SQLiteOpenHelper {
                 + File.KEY_content + " TEXT, "
                 + File.KEY_author + " TEXT, "
                 + File.KEY_createdAt + " TEXT, "
-                + File.KEY_ws + " INTEGER)";
+                + File.KEY_ws + " INTEGER, "
+                + File.KEY_size + " INTEGER)";
 
         db.execSQL(CREATE_TABLE_FILE);
 
         String CREATE_TABLE_WS = "CREATE TABLE " + Workspace.TABLE  + "("
                 + Workspace.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + Workspace.KEY_title + " TEXT, "
-                + Workspace.KEY_createdAt + " TEXT"
-                + Workspace.KEY_public + " INTEGER)";
+                + Workspace.KEY_createdAt + " TEXT, "
+                + Workspace.KEY_public + " INTEGER, "
+                + Workspace.KEY_sizeLimit + " INTEGER)";
 
         db.execSQL(CREATE_TABLE_WS);
 

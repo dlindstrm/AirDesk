@@ -11,6 +11,8 @@ public class File {
     public static final String KEY_author = "author";
     public static final String KEY_createdAt = "createdAt";
     public static final String KEY_ws = "ws";
+    public static final String KEY_size = "size";
+
 
     // property help us to keep data
     public int file_ID;
@@ -19,4 +21,10 @@ public class File {
     public String author;
     public String createdAt;
     public int ws;
+    public int size;
+
+    public void setSize() {
+        size = ((title.length()+content.length()+author.length())*2);
+    }
+
 }

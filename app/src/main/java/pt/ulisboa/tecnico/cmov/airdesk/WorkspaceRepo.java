@@ -26,6 +26,7 @@ public class WorkspaceRepo {
             String timestamp = new Timestamp(date.getTime()).toString();
             values.put(Workspace.KEY_createdAt, timestamp);
 //            values.put(Workspace.KEY_public, ws.publicWs);
+            values.put(Workspace.KEY_sizeLimit, ws.sizeLimit);
 
 
             // Inserting Row
@@ -49,6 +50,7 @@ public class WorkspaceRepo {
             ContentValues values = new ContentValues();
 
             values.put(Workspace.KEY_title, ws.title);
+            values.put(Workspace.KEY_sizeLimit, ws.sizeLimit);
 
             db.update(Workspace.TABLE, values, Workspace.KEY_ID + "= ?", new String[] { String.valueOf(ws.ws_ID) });
             db.close(); // Closing database connection
@@ -60,8 +62,7 @@ public class WorkspaceRepo {
             SQLiteDatabase db = dbHelper.getReadableDatabase();
             String selectQuery =  "SELECT  " +
                     Workspace.KEY_ID + "," +
-                    Workspace.KEY_title + "," +
-                    Workspace.KEY_createdAt +
+                    Workspace.KEY_title +
                     " FROM " + Workspace.TABLE;
 
             //Workspace ws = new Workspace();
@@ -91,7 +92,8 @@ public class WorkspaceRepo {
             String selectQuery =  "SELECT  " +
                     Workspace.KEY_ID + "," +
                     Workspace.KEY_title + "," +
-                    Workspace.KEY_createdAt +
+                    Workspace.KEY_createdAt + "," +
+                    Workspace.KEY_sizeLimit +
                     " FROM " + Workspace.TABLE
                     + " WHERE " +
                     Workspace.KEY_ID + "=?";
@@ -105,6 +107,7 @@ public class WorkspaceRepo {
                     ws.ws_ID =cursor.getInt(cursor.getColumnIndex(Workspace.KEY_ID));
                     ws.title =cursor.getString(cursor.getColumnIndex(Workspace.KEY_title));
                     ws.createdAt =cursor.getString(cursor.getColumnIndex(Workspace.KEY_createdAt));
+                    ws.sizeLimit =cursor.getInt(cursor.getColumnIndex(Workspace.KEY_sizeLimit));
 
                 } while (cursor.moveToNext());
             }

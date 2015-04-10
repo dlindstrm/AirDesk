@@ -37,5 +37,17 @@
         android:id="@+id/buttonSave"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="insertUser"/>
+        android:onClick="insertUser"
+        android:enabled="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invalid email format"
+        android:id="@+id/textViewFormat"
+        android:layout_below="@+id/editTextFullName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffff0008"
+        android:visibility="gone" />
 </RelativeLayout>

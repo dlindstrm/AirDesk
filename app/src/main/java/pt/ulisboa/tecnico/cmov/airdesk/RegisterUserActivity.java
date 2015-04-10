@@ -43,10 +43,13 @@ public class RegisterUserActivity extends ActionBarActivity {
 
     // Called when the user clicks the sharedWs button
     public void insertUser(View view) {
-        User user = new User(this);
+        User user = new User();
         EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         EditText editTextFullName = (EditText) findViewById(R.id.editTextFullName);
-        user.insert(editTextEmail.getText().toString(),editTextFullName.getText().toString());
+        user.email = editTextEmail.getText().toString();
+        user.fullName = editTextFullName.getText().toString();
+        UserRepo repo = new UserRepo(this);
+        repo.insert(user);
         Toast.makeText(this, "Account successfully created", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

@@ -3,9 +3,12 @@ package pt.ulisboa.tecnico.cmov.airdesk;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,10 +26,28 @@ public class EditFileActivity extends ActionBarActivity {
         _File_Id = intent.getIntExtra("file_Id", 0);
         FileRepo repo = new FileRepo(this);
         File file = repo.getFileById(_File_Id);
-        EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        final EditText editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         EditText editTextContent = (EditText) findViewById(R.id.editTextContent);
         editTextContent.setText(file.content);
         editTextTitle.setText(file.title);
+
+
+        ((Button) findViewById(R.id.saveBtn)).setEnabled(true); //Ok to save without making any edits
+        TextWatcher tW = new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void afterTextChanged(Editable s) {
+                Button b = (Button) findViewById(R.id.saveBtn);
+                if (!editTextTitle.getText().toString().isEmpty()){
+                    b.setEnabled(true);
+                }
+                else b.setEnabled(false);
+            }
+        };
+        editTextTitle.addTextChangedListener(tW);
     }
 
 
@@ -67,11 +88,22 @@ public class EditFileActivity extends ActionBarActivity {
         file.title = editTextTitle.getText().toString();
         file.content = editTextContent.getText().toString();
 
-        repo.update(file);
-        Toast.makeText(this, "File updated", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MyWorkspaceActivity.class);
-        intent.putExtra("ws_Id",file.ws);
-        startActivity(intent);
+        WorkspaceRepo wsRepo = new WorkspaceRepo(this);
+        Workspace workspace = wsRepo.getWorkspaceById(file.ws);
+        int oldSize = file.size;
+        file.setSize();
+        if(workspace.sizeLimit-repo.getFileSizes(file.ws)+oldSize >= file.size) {
+            repo.update(file);
+            Toast.makeText(this, "File updated", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MyWorkspaceActivity.class);
+            intent.putExtra("ws_Id",file.ws);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "File is too big.", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     // Called when the user clicks the cancel button

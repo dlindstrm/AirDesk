@@ -29,6 +29,7 @@ public class FileRepo {
         String timestamp = new Timestamp(date.getTime()).toString();
         values.put(File.KEY_createdAt, timestamp);
         values.put(File.KEY_ws, file.ws);
+        values.put(File.KEY_size, file.size);
 
 
         // Inserting Row
@@ -52,6 +53,7 @@ public class FileRepo {
         values.put(File.KEY_content,file.content);
         values.put(File.KEY_title, file.title);
         values.put(File.KEY_author, file.author);
+        values.put(File.KEY_size, file.size);
 
         db.update(File.TABLE, values, File.KEY_ID + "= ?", new String[] { String.valueOf(file.file_ID) });
         db.close(); // Closing database connection
@@ -60,13 +62,9 @@ public class FileRepo {
     public ArrayList<HashMap<String, String>>  getFileList(int ws) {
         //Open connection to read only
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery =  "SELECT  " +
+        String selectQuery =  "SELECT " +
                 File.KEY_ID + "," +
-                File.KEY_title + "," +
-                File.KEY_content + "," +
-                File.KEY_author + "," +
-                File.KEY_createdAt + "," +
-                File.KEY_ws +
+                File.KEY_title +
                 " FROM " + File.TABLE +
                 " WHERE " +
                 File.KEY_ws + "=?";
@@ -95,14 +93,8 @@ public class FileRepo {
 
     public File getFileById(int Id){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery =  "SELECT  " +
-                File.KEY_ID + "," +
-                File.KEY_title + "," +
-                File.KEY_content + "," +
-                File.KEY_author + "," +
-                File.KEY_createdAt + "," +
-                File.KEY_ws +
-                " FROM " + File.TABLE
+        String selectQuery =  "SELECT * FROM " +
+                File.TABLE
                 + " WHERE " +
                 File.KEY_ID + "=?";
 
@@ -118,6 +110,7 @@ public class FileRepo {
                 file.author =cursor.getString(cursor.getColumnIndex(File.KEY_author));
                 file.createdAt =cursor.getString(cursor.getColumnIndex(File.KEY_createdAt));
                 file.ws =cursor.getInt(cursor.getColumnIndex(File.KEY_ws));
+                file.size = cursor.getInt(cursor.getColumnIndex(File.KEY_size));
 
             } while (cursor.moveToNext());
         }
@@ -125,6 +118,29 @@ public class FileRepo {
         cursor.close();
         db.close();
         return file;
+    }
+
+    public int getFileSizes(int Id){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery =  "SELECT " +
+                File.KEY_size +
+                " FROM " +
+                File.TABLE +
+                " WHERE " +
+                File.KEY_ws + "=?";
+
+
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(Id) } );
+        int fileSizes = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                fileSizes = fileSizes + cursor.getInt(cursor.getColumnIndex(File.KEY_size));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return fileSizes;
     }
 
 }
