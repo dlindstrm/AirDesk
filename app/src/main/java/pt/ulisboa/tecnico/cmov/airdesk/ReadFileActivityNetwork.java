@@ -57,11 +57,22 @@ public class ReadFileActivityNetwork extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_delete) {
+
+            //popup window
+
+            repo.delete(_File_Id);
+            Intent intent = new Intent(this, SharedWorkspace.class);
+            intent.putExtra("ws_Id",_Ws_Id);
+            startActivity(intent);
+        }
+        else if (id == R.id.action_edit) {
+            Intent intent = new Intent(this, EditFileActivityNetwork.class);
+            intent.putExtra("file_Id",_File_Id);
+            startActivity(intent);
         }
 
-        else if (id == android.R.id.home) {
+        if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }

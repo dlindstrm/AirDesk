@@ -19,7 +19,6 @@ import java.util.HashMap;
 
 public class SharedWorkspaces extends ActionBarActivity {
 
-    //Hej
 
     TextView ws_Id;
     @Override
@@ -34,7 +33,6 @@ public class SharedWorkspaces extends ActionBarActivity {
         //network get list of workspaces
         NetworkHandlerRequest nwHdl = new NetworkHandlerRequest();
         ArrayList<HashMap<String, String>> wsList = nwHdl.getListWs(user.email);
-
 
 
         if(wsList.size()!=0) {
@@ -72,9 +70,9 @@ public class SharedWorkspaces extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

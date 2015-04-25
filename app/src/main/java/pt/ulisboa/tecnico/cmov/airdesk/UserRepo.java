@@ -1,4 +1,3 @@
-
 package pt.ulisboa.tecnico.cmov.airdesk;
 
 import android.content.ContentValues;
@@ -73,4 +72,3 @@ public class UserRepo {
         return user;
     }
 }
-

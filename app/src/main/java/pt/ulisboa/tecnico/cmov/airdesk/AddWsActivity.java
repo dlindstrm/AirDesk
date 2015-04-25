@@ -36,6 +36,8 @@ public class AddWsActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("New Workspace");
+
         setContentView(R.layout.activity_add_ws);
 
         StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
@@ -101,9 +103,9 @@ public class AddWsActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

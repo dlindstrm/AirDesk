@@ -20,6 +20,7 @@ import java.util.HashMap;
 public class SharedWorkspace extends ActionBarActivity {
     private int _Ws_Id=0;
     TextView file_Id;
+    NetworkHandlerRequest nwHdl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class SharedWorkspace extends ActionBarActivity {
         _Ws_Id =intent.getIntExtra("ws_Id", 0);
 
         //Network get list of files in workspace
-        NetworkHandlerRequest nwHdl = new NetworkHandlerRequest();
+        nwHdl = new NetworkHandlerRequest();
         ArrayList<HashMap<String, String>> fileList = nwHdl.getWsById(_Ws_Id);
 
 
@@ -75,9 +76,12 @@ public class SharedWorkspace extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_add) {
+            Intent intent = new Intent(this,AddFileActivityNetwork.class);
+            intent.putExtra("ws_Id",_Ws_Id);
+            startActivity(intent);
         }
+
 
         return super.onOptionsItemSelected(item);
     }

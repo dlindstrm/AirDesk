@@ -36,6 +36,8 @@ public class EditWsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_ws);
 
+        setTitle("Edit Workspace");
+
         StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
         bytesAvailable = (long)stat.getBlockSizeLong() * (long)stat.getAvailableBlocksLong();
         long mbAvailable = bytesAvailable / (1024*1024);
@@ -98,11 +100,11 @@ public class EditWsActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
-        else if (id == android.R.id.home) {
+        if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }
